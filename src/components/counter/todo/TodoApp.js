@@ -1,13 +1,27 @@
 import React from "react"
 import { Component } from "react";
-
+import {  BrowserRouter,
+  Routes,
+  Route } from "react-router-dom";
 
 const TodoApp = () => {
     return (
-        <>
-          <LogIn /> 
-        </>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={ <LogIn/>} />
+            <Route path="/login" element={<LogIn/>} />
+            <Route path="/welcome" element={<WelcomeComp/>} />
+          </Routes>
+        </BrowserRouter>
+        // <LogIn /> 
+        // <WelcomeComp />
       )
+}
+
+class WelcomeComp extends Component{
+  render(){
+    return <h4>Welcome to the TodoApp!!</h4>
+  }
 }
 
 class LogIn extends Component{
@@ -64,8 +78,10 @@ class LogIn extends Component{
       <>
         
 
-          <ErrorMessage loginFailed={this.state.loginFailed} />
-          <SuccessMsg successMessage={this.state.successMessage} />
+          {/* <ErrorMessage loginFailed={this.state.loginFailed} /> */}
+          {/* <SuccessMsg successMessage={this.state.successMessage} /> */}
+          {this.state.loginFailed && <h4>Log in failed!</h4>}
+          {this.state.successMessage && <h4>Log in Successful!</h4>}
          User Name: <input type="text" name="userName" value={this.state.userName} onChange={this.handleChange} />
          Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
          <button onClick={this.handleLogin} >Log In</button>
@@ -74,19 +90,19 @@ class LogIn extends Component{
   }
 }
 
-function ErrorMessage (props) {
+/* function ErrorMessage (props) {
   if(props.loginFailed){
     return <h4>Log in failed!</h4>
   }
   return null
-}
+} */
 
-function SuccessMsg (props){
+/* function SuccessMsg (props){
   if(props.successMessage){
     return <h4>Log in Successful!</h4>
     
   }
   return null
-}
+} */
 
-export { TodoApp, LogIn }
+export { TodoApp, LogIn, WelcomeComp }
