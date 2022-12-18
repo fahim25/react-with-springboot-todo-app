@@ -1,15 +1,18 @@
 import React from "react"
 import { Component } from "react";
-import {  BrowserRouter,
+import {  
+  BrowserRouter,
   Routes,
-  Route } from "react-router-dom";
+  Route, 
+  useNavigate 
+} from "react-router-dom";
 
 const TodoApp = () => {
     return (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={ <LogIn/>} />
-            <Route path="/login" element={<LogIn/>} />
+            <Route path="/" element={ <AppWithRoute/>} />
+            <Route path="/login" element={<AppWithRoute/>} />
             <Route path="/welcome" element={<WelcomeComp/>} />
           </Routes>
         </BrowserRouter>
@@ -45,7 +48,6 @@ class LogIn extends Component{
     // this.handlePassword = this.handlePassword.bind(this);
   };
 
-  
   handleChange(event){
     this.setState({
         [event.target.name]
@@ -54,10 +56,15 @@ class LogIn extends Component{
   }
 
   handleLogin(event){
-
+  
     if(this.state.userName==="username" && this.state.password==="pass"){
-       this.setState({successMessage:true})
-       this.setState({loginFailed:false})
+       /* this.setState({successMessage:true})
+       this.setState({loginFailed:false}) */
+      
+        this.props.navigate('/welcome')
+
+       /* this.setState({successMessage:true})
+       this.setState({loginFailed:false}) */
     }else{
       this.setState({successMessage:false})
       this.setState({loginFailed:true})
@@ -104,5 +111,12 @@ class LogIn extends Component{
   }
   return null
 } */
+
+export function AppWithRoute(props){
+  const navigate = useNavigate();
+  return(
+    <LogIn navigate={navigate}></LogIn>
+  )
+}
 
 export { TodoApp, LogIn, WelcomeComp }
