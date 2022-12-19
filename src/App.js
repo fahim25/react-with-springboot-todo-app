@@ -1,15 +1,16 @@
-import './App.css';
-// import Counter from './components/counter/Counter';
-import {TodoApp} from './components/counter/todo/TodoApp';
-
-
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import Login from "./components/fcCounter/Login";
+import Welcome from "./components/fcCounter/Welcome";
 
 function App() {
   return (
-    <div className="App">
-      {/* <Counter /> */}
-      <TodoApp />
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="welcome" element={<Welcome />} />
+      </Routes>
+    </>
   );
 }
 
