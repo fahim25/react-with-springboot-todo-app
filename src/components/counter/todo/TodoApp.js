@@ -14,6 +14,7 @@ const TodoApp = () => {
             <Route path="/" element={ <AppWithRoute/>} />
             <Route path="/login" element={<AppWithRoute/>} />
             <Route path="/welcome" element={<WelcomeComp/>} />
+            <Route path="*" element={<ErrorComponent/>} />
           </Routes>
         </BrowserRouter>
         // <LogIn /> 
@@ -118,5 +119,10 @@ export function AppWithRoute(props){
     <LogIn navigate={navigate}></LogIn>
   )
 }
+
+function ErrorComponent(){
+  return <h2>Something went wrong!</h2>
+}
+
 
 export { TodoApp, LogIn, WelcomeComp }
