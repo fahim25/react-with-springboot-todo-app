@@ -8,7 +8,11 @@ function App() {
   return (
     <div className="App">
       {/* <Counter /> */}
-      <TodoApp />
+        <body>
+          <div className='container'>
+            <TodoApp />
+          </div>
+        </body>
     </div>
   );
 }
