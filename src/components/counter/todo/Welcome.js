@@ -9,13 +9,25 @@ function WelcomeComp() {
     let [welconmeMessage ,setWelcomeMessage] = useState('');
 
     function getMessage(){
-      HelloWorldService.executeHelloWorldService()
-      .then(response => setSuccesResponse(response))
+      // HelloWorldService.executeHelloWorldService()
+      // .then(response => setSuccesResponse(response))
+      // .catch(error => setSuccesResponse(handelError(error)))
+
+      // HelloWorldService.executeHelloWorldPathVariableService(name)
+      // .then(response => setSuccesResponse(response))
       // .catch()
+
+      HelloWorldService.executeHelloWorldBeanService()
+      .then(response => setSuccesResponse(response))
     }
 
     function setSuccesResponse(response){
-      setWelcomeMessage(response.data)
+      // setWelcomeMessage(response.data)
+      setWelcomeMessage(response.data.message)
+    }
+
+    function handelError(error){
+      setWelcomeMessage(error.response.data.message)
     }
 
     return (
