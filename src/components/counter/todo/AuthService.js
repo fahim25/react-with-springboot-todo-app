@@ -18,6 +18,15 @@ class AuthService{
         }
     }
 
+    getLoggedInUser(){
+        let user = sessionStorage.getItem('authUser');
+        if(user===null){
+            return ''
+        }else{
+            return false
+        }
+    }
+
 }
 
 export default new AuthService()
