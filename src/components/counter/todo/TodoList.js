@@ -14,7 +14,7 @@ import AuthService from "./AuthService";
 
 const TodoList = () => {
 
-  let [setTodos, Todos] = useState({})
+  let [todos,setTodos ] = useState();
 
 
   useEffect(() => {
@@ -22,12 +22,10 @@ const TodoList = () => {
     TodoDataService.getAllTodos(userName)
     .then(
       response =>{
-        setTodos({Todos: response.data})
-        console.log('Todos')
+        setTodos(response.data)
       }
     )
   });
-
 
     return (
       <>
@@ -43,7 +41,8 @@ const TodoList = () => {
               </tr>
             </thead>
             <tbody>
-              {todos.map((todos,index) =>
+              {/* for featching data */}
+              {todos && todos.map((todos,index) =>
                 <tr key={index}>
                   <td>{todos.id}</td>
                   <td>{todos.description}</td>
@@ -51,7 +50,6 @@ const TodoList = () => {
                   <td>{todos.done.toString()}</td>
                 </tr>
               )}
-              
             </tbody>
           </table>
         </div>
