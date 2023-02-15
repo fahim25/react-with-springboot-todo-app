@@ -23,7 +23,7 @@ class AuthService{
         if(user===null){
             return ''
         }else{
-            return false
+            return user
         }
     }
 
