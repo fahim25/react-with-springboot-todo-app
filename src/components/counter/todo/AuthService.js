@@ -1,32 +1,30 @@
-class AuthService{
+class AuthService {
+  regSuccessLogin(userName, password) {
+    sessionStorage.setItem("authUser", userName);
+    console.log(userName.toString());
+  }
 
-    regSuccessLogin(userName, password){
-        sessionStorage.setItem('authUser', userName);
-        console.log(userName.toString())
+  logOut() {
+    sessionStorage.removeItem("authUser");
+  }
+
+  isUserLogin() {
+    let user = sessionStorage.getItem("authUser");
+    if (user == null) {
+      return false;
+    } else {
+      return true;
     }
+  }
 
-    logOut(){
-        sessionStorage.removeItem('authUser');
+  getLoggedInUser() {
+    let user = sessionStorage.getItem("authUser");
+    if (user === null) {
+      return "";
+    } else {
+      return user;
     }
-
-    isUserLogin(){
-        let user = sessionStorage.getItem('authUser');
-        if(user==null){
-            return false
-        }else{
-            return true
-        }
-    }
-
-    getLoggedInUser(){
-        let user = sessionStorage.getItem('authUser');
-        if(user===null){
-            return ''
-        }else{
-            return user
-        }
-    }
-
+  }
 }
 
-export default new AuthService()
+export default new AuthService();

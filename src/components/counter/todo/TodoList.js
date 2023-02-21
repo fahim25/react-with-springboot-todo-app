@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import TodoDataService from "../../../api/todo/TodoDataService"
-import AuthService from "./AuthService";
+import AuthService from "./AuthService"
 
 
 
@@ -11,11 +12,15 @@ import AuthService from "./AuthService";
 // ]
 
 
-const TodoList = () => {
+const TodoList = (props) => {
 
   let [todos,setTodos ] = useState();
   let [message,setMessage ] = useState();
+  const navigate = useNavigate();
 
+  const handleNavigation = (id) => {
+    navigate(`/todos/${id}`);
+  }
 
   function deleteTodo(id){
     let userName = AuthService.getLoggedInUser();
@@ -26,7 +31,11 @@ const TodoList = () => {
         setMessage(message= `Detele of todo ${id} successful!`)
       }
     )
+  }
 
+
+  function updateTodo(id){
+      handleNavigation(id);
   }
 
   useEffect(() => {
@@ -51,7 +60,8 @@ const TodoList = () => {
                 <th>description</th>
                 <th>Targat Date</th>
                 <th>Is Completed?</th>
-                <th>Action</th>
+                <th>Update</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -62,6 +72,7 @@ const TodoList = () => {
                   <td>{todos.description}</td>
                   <td>{todos.targetDate.toString()}</td>
                   <td>{todos.done.toString()}</td>
+                  <td><button className="btn btn-success" onClick={() => updateTodo(todos.id) } >Update</button></td>
                   <td><button className="btn btn-danger" onClick={() => deleteTodo(todos.id) } >Delete</button></td>
                 </tr>
               )}
