@@ -4,11 +4,9 @@ import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import TodoDataService from "../../../api/todo/TodoDataService";
 import AuthService from "./AuthService";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-const TodoComponent = (props) => {
-  // const submit = useSubmitImpl();
-
+const TodoComponent = () => {
   const { id } = useParams();
 
   const [todo, setTodo] = useState({
@@ -17,9 +15,15 @@ const TodoComponent = (props) => {
     targetDate: moment(new Date()).format("YYYY-MM-DD"),
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if (id === -1) {
+      return null;
+    }
+
     let userName = AuthService.getLoggedInUser();
-    TodoDataService.updateTodo(userName, id).then((response) =>
+    TodoDataService.getTodo(userName, id).then((response) =>
       setTodo({
         description: response.data.description,
         targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
@@ -30,8 +34,24 @@ const TodoComponent = (props) => {
   let { description, targetDate } = todo;
   //   let targetDate = todo.targetDate;
 
-  const submit = (value) => {
-    console.log(value);
+  const submit = (values) => {
+    let userName = AuthService.getLoggedInUser();
+
+    let todo = {
+      id: id,
+      description: values.description,
+      targetDate: values.targetDate,
+    };
+
+    if (id === -1) {
+      TodoDataService.createTodo(userName, todo).then(() =>
+        navigate("/todolist")
+      );
+    } else {
+      TodoDataService.updateTodo(userName, id, todo).then(() =>
+        navigate("/todolist")
+      );
+    }
   };
 
   const validate = (value) => {
@@ -48,16 +68,16 @@ const TodoComponent = (props) => {
     return error;
   };
 
-  function updateTodo(id) {
-    let userName = AuthService.getLoggedInUser();
+  // function updateTodo(id) {
+  //   let userName = AuthService.getLoggedInUser();
 
-    TodoDataService.updateTodo(userName, id).then((response) =>
-      setTodo({
-        description: response.data.description,
-        targetDate: response.data.targetDate,
-      })
-    );
-  }
+  //   TodoDataService.updateTodo(userName, id).then((response) =>
+  //     setTodo({
+  //       description: response.data.description,
+  //       targetDate: response.data.targetDate,
+  //     })
+  //   );
+  // }
 
   return (
     <div className="container">
@@ -68,11 +88,12 @@ const TodoComponent = (props) => {
             initialValues={{
               description,
               targetDate,
+              id,
 
               // description: description,
               // targetDate: targetDate
             }}
-            onSubmit={submit}
+            onSubmit={(values) => submit(values)}
             // onSubmit={value=>{
             //     console.log(value)
             // }}
