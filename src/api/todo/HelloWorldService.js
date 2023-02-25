@@ -1,18 +1,27 @@
+import axios from "axios";
 
-import axios from 'axios';
+class HelloWorldService {
+  executeHelloWorldService() {
+   /*  let userName = "username";
+    let password = "password";
 
-class HelloWorldService{
-    executeHelloWorldService(){
-        return axios.get("http://localhost:8080/helloWorld")
-    }
-    executeHelloWorldBeanService(){
-        return axios.get("http://localhost:8080/helloWorldBean")
-    }
+    let basicAuthHeader = "Basic " + window.btoa(userName + ":" + password);
 
-    executeHelloWorldPathVariableService(name){
-        return axios.get(`http://localhost:8080/helloWorldBean/${name}`)
-    }
+    return axios.get("http://localhost:8080/helloWorld", {
+      headers: {
+        authorization: basicAuthHeader,
+      },
+    }); */
+
+    return axios.get("http://localhost:8080/helloWorld");
+  }
+  /* executeHelloWorldBeanService() {
+    return axios.get("http://localhost:8080/helloWorldBean");
+  }
+
+  executeHelloWorldPathVariableService(name) {
+    return axios.get(`http://localhost:8080/helloWorldBean/${name}`);
+  } */
 }
 
-
-export default new HelloWorldService()
+export default new HelloWorldService();

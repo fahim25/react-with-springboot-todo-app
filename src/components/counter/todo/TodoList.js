@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import TodoDataService from "../../../api/todo/TodoDataService";
 import AuthService from "./AuthService";
 
-// var todos=[
-//     { id:1, description:'Learn React', done:false, targetDate: new Date()},
-//     { id:2, description:'Learn React',done:false, targetDate: new Date()},
-//     { id:3, description:'Learn React',done:false, targetDate: new Date()}
-// ]
+/* var todos=[
+    { id:1, description:'Learn React', done:false, targetDate: new Date()},
+    { id:2, description:'Learn React',done:false, targetDate: new Date()},
+    { id:3, description:'Learn React',done:false, targetDate: new Date()}
+] */
 
 const TodoList = (props) => {
   let [todos, setTodos] = useState();
@@ -27,7 +27,7 @@ const TodoList = (props) => {
   }
 
   function addTodo() {
-    navigate("/todos/-1");
+    navigate("/todos/-1"); 
   }
 
   function updateTodo(id) {

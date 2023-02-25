@@ -1,11 +1,10 @@
-import { Field, Formik, Form, ErrorMessage } from "formik";
+/* import { Field, Formik, Form, ErrorMessage } from "formik";
+// import { useSubmitImpl } from '@react-admin/ra-relationships';
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import TodoDataService from "../../../api/todo/TodoDataService";
 import AuthService from "./AuthService";
 import { useParams, useNavigate } from "react-router-dom";
-
-// Redo by chat gpt
 
 const TodoComponent = () => {
   const { id } = useParams();
@@ -47,12 +46,14 @@ const TodoComponent = () => {
     let userName = AuthService.getLoggedInUser();
     TodoDataService.getTodo(userName, id).then((response) =>
       setTodo({
-        id: id,
         description: response.data.description,
         targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
       })
     );
   }, [id]);
+
+  let { description, targetDate } = todo;
+  //   let targetDate = todo.targetDate;
 
   const submit = (values) => {
     let userName = AuthService.getLoggedInUser();
@@ -74,31 +75,49 @@ const TodoComponent = () => {
     }
   };
 
-  const validate = (values) => {
-    let errors = {};
-    if (!values.description) {
-      errors.description = "Enter a Description";
-    } else if (values.description.length < 5) {
-      errors.description = "Description should be at least 5 characters long";
+  const validate = (value) => {
+    let error = {};
+    if (!value.description) {
+      error.description = "Enter a Description";
+    } else if (value.description.length < 5) {
+      error.description = "Description should be atleast 5 char!";
     }
 
-    if (!moment(values.targetDate).isValid()) {
-      errors.targetDate = "Enter a valid date!";
+    if (!moment(value.targetDate).isValid()) {
+      error.targetDate = "Enter a valid date!";
     }
-    return errors;
+    return error;
   };
+
+  // function updateTodo(id) {
+  //   let userName = AuthService.getLoggedInUser();
+
+  //   TodoDataService.updateTodo(userName, id).then((response) =>
+  //     setTodo({
+  //       description: response.data.description,
+  //       targetDate: response.data.targetDate,
+  //     })
+  //   );
+  // }
 
   return (
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-8">
-          <h1>Update Todo</h1>
+          <h1>Updat Todo</h1>
           <Formik
             initialValues={{
-              description: todo.description,
-              targetDate: todo.targetDate,
+              description,
+              targetDate,
+              id,
+
+              // description: description,
+              // targetDate: targetDate
             }}
-            onSubmit={submit}
+            onSubmit={(values) => submit(values)}
+            // onSubmit={value=>{
+            //     console.log(value)
+            // }}
             validate={validate}
             validateOnChange={false}
             validateOnBlur={false}
@@ -122,6 +141,7 @@ const TodoComponent = () => {
                   className="form-control"
                   type="text"
                   name="description"
+                  value={values.description}
                   onChange={handleDescriptionChange}
                 />
               </fieldset>
@@ -131,6 +151,7 @@ const TodoComponent = () => {
                   className="form-control"
                   type="date"
                   name="targetDate"
+                  value={todo.targetDate}
                   onChange={handleTargetDateChange}
                 />
               </fieldset>
@@ -146,3 +167,4 @@ const TodoComponent = () => {
 };
 
 export default TodoComponent;
+ */
